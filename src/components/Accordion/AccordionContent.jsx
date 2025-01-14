@@ -1,8 +1,10 @@
 import React from "react";
 import { useAccordionContext } from "./Accordion";
+import { useAccordionItemContext } from "./AccordionItem";
 
-const AccordionContent = ({ id, children, className }) => {
+const AccordionContent = ({ children, className }) => {
   const { openItemId } = useAccordionContext();
+  const { id } = useAccordionItemContext();
 
   const isOpen = openItemId === id;
   const classes = `${isOpen ? "open" : "close"} ${className || ""}`;
