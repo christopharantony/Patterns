@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const SearchableList = ({ items, children, itemKeyFn }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const lastChange = useRef(null);
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    if (lastChange.current) {
+      clearTimeout(lastChange.current);
+    }
+    lastChange.current = setTimeout(() => {
+      setSearchTerm(event.target.value);
+      lastChange.current = null;
+    }, 500);
   };
 
   const filteredItems = items?.filter((item) =>
